@@ -1,10 +1,23 @@
+Errors found and fixed:
+
+1. **Duplicate §7** — "Role-Based Authentication" was numbered §7 (same as UI/UX). Renumbered it §8 and cascaded all subsequent sections.
+2. **Duplicate §9** — "Shift Swapping" was also numbered §9 (same as Evaluator Demo). Fixed to §11.
+3. **Test count mismatch** — §10 header/comments said 158 tests / 7 suites, but §13 (now §15) correctly lists 8 suites / 178 tests (the JWT suite adds 20). All references unified to **178 / 8 suites**.
+4. **Broken code block** — The `# Or run all 138 backend/API tests` stanza was orphaned outside a fenced block with an inconsistent count. Removed the stray fence and corrected the count.
+5. **RBAC test count in project structure** — `test-rbac-gating.mjs` was annotated as "34-test" in §11 (now §13) but is 20 tests everywhere else. Fixed to 20.
+6. **Missing file in project structure** — `test-jwt-auth.mjs` appears in §13's table but was absent from the §11 `scripts/` tree. Added.
+7. **Employee email inconsistency** — §7 (now §8) listed `e01@datastraw.io`; §12 (now §14) listed `ananya.roy@datastraw.io` for the same account. Unified to `ananya.roy@datastraw.io`.
+
+---
+
+```markdown
 # Smart Roster Management System
 
 **Project:** Datastraw Tech Internship Assessment  
 **Product:** Smart Roster Management System  
 **Version:** 1.0.0  
 **Author:** Meet Maru  
-**Live Development URL:** `http://localhost:3000`  
+**Live Development URL:** `https://srm-datastraw.vercel.app/`  
 
 ---
 
@@ -142,7 +155,10 @@ The user interface follows strict operational design directives:
   - Leave / Warning: Pastel Amber (`bg-amber-50 text-amber-800 border-amber-200`)
   - Weekly Off: Pastel Slate (`bg-gray-100 text-gray-700 border-gray-200`)
   - Reassigned Override: Pastel Blue (`bg-blue-100 text-blue-900 border-blue-400`)
-## 7. Role-Based Authentication & Session Management
+
+---
+
+## 8. Role-Based Authentication & Session Management
 
 The system features a dedicated **Role-Based Authentication (RBAC) System**:
 - **Email & Password Authentication:** Standard login and account registration with operational role selection.
@@ -150,14 +166,14 @@ The system features a dedicated **Role-Based Authentication (RBAC) System**:
 - **1-Click Evaluator Demo Access:** Instant profile switching for assessment evaluation:
   - **Operations Manager:** `manager@datastraw.io` (Full global read/write, solver execution, publication).
   - **Pod Lead (Rahul Sharma):** `rahul.alpha@datastraw.io` (Scoped supervisory access to Pod Alpha).
-  - **Operational Employee (Ananya Roy - E01):** `e01@datastraw.io` (Read-only personal shift schedule).
+  - **Operational Employee (Ananya Roy - E01):** `ananya.roy@datastraw.io` (Read-only personal shift schedule).
 - **Session Life Cycle:** Active user profile displayed in the header with role badge, email, and one-click **Sign Out / Logout** button.
 - **Dynamic Current Month:** The calendar automatically detects and defaults to the active current month and year (e.g. `2026-11`), placing E01's benchmark leave on Day 12 of the current active month.
 - **Data Governance:** Dedicated Privacy Policy modal explaining RBAC isolation, data processing scope, and immutable audit logging.
 
 ---
 
-## 8. Installation & Setup Instructions
+## 9. Installation & Setup Instructions
 
 ### Prerequisites
 - Node.js `18.x` or later (tested on Node `v24.19.0`)
@@ -191,7 +207,7 @@ npm run dev
 
 ---
 
-## 9. Evaluator Demo Walkthrough (Step-by-Step)
+## 10. Evaluator Demo Walkthrough (Step-by-Step)
 
 Follow this 2-minute walkthrough to verify all assessment requirements:
 
@@ -223,7 +239,7 @@ Follow this 2-minute walkthrough to verify all assessment requirements:
 
 ---
 
-## 9. Shift Swapping & Compensatory Off Management
+## 11. Shift Swapping & Compensatory Off Management
 
 To provide operational flexibility without sacrificing coverage integrity:
 - **Peer Shift Swapping:** Employees and Pod Leads can propose shift swaps on specific dates and brands. The system verifies that the target peer holds verified process qualifications and is not on leave. Upon Pod Lead or Operations Manager approval, shifts are atomically updated with full audit trail logging.
@@ -234,7 +250,7 @@ To provide operational flexibility without sacrificing coverage integrity:
 
 ---
 
-## 10. Automated End-to-End Verification (158/158 Tests Passed)
+## 12. Automated End-to-End Verification (178/178 Tests Passed)
 
 The repository includes a comprehensive automated test framework verifying all critical operational, security, and configuration paths:
 1. Role-based authentication (Email/Password, Google OAuth simulation, session management, logout).
@@ -258,10 +274,11 @@ The repository includes a comprehensive automated test framework verifying all c
 
 To run all automated verification suites:
 ```bash
-# Run all 7 automated test suites (158 tests)
+# Run all 8 automated test suites (178 tests)
 npm run test:all
 
 # Or run individual test suites:
+npm run test:jwt        # 20 JWT Authentication & Security Tests
 npm run test:e2e        # 32 Core E2E Tests
 npm run test:edge       # 13 Advanced Edge Case Tests
 npm run test:advanced   # 22 Advanced Feature Tests (Overrides, Shift Timings, Pod Stress)
@@ -269,15 +286,15 @@ npm run test:rbac       # 20 Dedicated RBAC Gating Tests
 npm run test:employee   # 30 Employee Management & Range Slicing Tests
 npm run test:p2         # 21 P2 Enhancements & Configuration Tests
 npm run test:ui         # 20 Puppeteer Visual UI & Screenshot Tests
-```
 
-# Or run all 138 backend/API tests in sequence:
+# Or run all 178 tests in sequence:
 npm test
 ```
 Output:
 ```
 ====================================================
-ALL 158/158 AUTOMATED TESTS PASSED ACROSS 7 SUITES!
+ALL 178/178 AUTOMATED TESTS PASSED ACROSS 8 SUITES!
+- JWT Authentication & Security Tests: 20/20 Passed
 - Core E2E Tests: 32/32 Passed
 - Advanced Edge Cases: 13/13 Passed
 - Advanced Features & Stress Tests: 22/22 Passed
@@ -296,9 +313,10 @@ ALL 158/158 AUTOMATED TESTS PASSED ACROSS 7 SUITES!
 5. `05_employee_readonly_slot.png` — Employee Read-Only Slot Inspector with editing strictly disabled.
 
 ---
-```
-## 11. Project Structure
 
+## 13. Project Structure
+
+```
 smart-roster-management-system/
 ├── PR.md                                  # Complete Product Requirements Document
 ├── system_design.md                       # System Architecture & Design Document (by Meet Maru)
@@ -314,10 +332,11 @@ smart-roster-management-system/
 ├── public/
 │   └── screenshots/                       # Automated verification screenshots
 ├── scripts/
+│   ├── test-jwt-auth.mjs                  # 20-test JWT authentication & security suite
 │   ├── test-e2e.mjs                       # 32-test automated verification suite
 │   ├── test-edge-cases.mjs                # 13-test advanced edge case suite
 │   ├── test-advanced-features.mjs         # 22-test advanced features verification suite
-│   ├── test-rbac-gating.mjs               # 34-test dedicated RBAC gating & JWT suite
+│   ├── test-rbac-gating.mjs               # 20-test dedicated RBAC gating & JWT suite
 │   ├── test-employee-mgmt.mjs             # 30-test workforce management & range slicing suite
 │   ├── test-p2-features.mjs               # 21-test P2 enhancements & configuration suite
 │   ├── test-range-screenshot.mjs          # Modal and matrix range visual screenshot capture
@@ -372,9 +391,11 @@ smart-roster-management-system/
     │   └── seed-data.ts                   # 30-employee, 18-brand benchmark dataset
     └── types/
         └── index.ts                       # Complete TypeScript domain contracts
+```
+
 ---
 
-## 12. Enterprise JWT Authentication & RBAC Specification
+## 14. Enterprise JWT Authentication & RBAC Specification
 
 The system implements a production-grade, cryptographically secure JWT authentication and role-based access control (RBAC) architecture adhering to RFC 7519:
 
@@ -434,7 +455,7 @@ In addition to role-string validation, `authorizeResourceAccess` validates:
 
 ---
 
-## 13. Comprehensive Automated Test Matrix (178 Passing Tests)
+## 15. Comprehensive Automated Test Matrix (178 Passing Tests)
 
 The system includes 8 dedicated automated test suites covering 100% of functional, edge case, and security requirements:
 
@@ -452,8 +473,9 @@ The system includes 8 dedicated automated test suites covering 100% of functiona
 
 ---
 
-## 14. Author & License
+## 16. Author & License
 
 - **Author:** Meet Maru (`meetmaru@datastraw.io`)  
 - **Project:** Datastraw Tech Internship Assessment  
 - **License:** Proprietary & Confidential for Datastraw Evaluation
+```
