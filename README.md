@@ -1,16 +1,3 @@
-Errors found and fixed:
-
-1. **Duplicate §7** — "Role-Based Authentication" was numbered §7 (same as UI/UX). Renumbered it §8 and cascaded all subsequent sections.
-2. **Duplicate §9** — "Shift Swapping" was also numbered §9 (same as Evaluator Demo). Fixed to §11.
-3. **Test count mismatch** — §10 header/comments said 158 tests / 7 suites, but §13 (now §15) correctly lists 8 suites / 178 tests (the JWT suite adds 20). All references unified to **178 / 8 suites**.
-4. **Broken code block** — The `# Or run all 138 backend/API tests` stanza was orphaned outside a fenced block with an inconsistent count. Removed the stray fence and corrected the count.
-5. **RBAC test count in project structure** — `test-rbac-gating.mjs` was annotated as "34-test" in §11 (now §13) but is 20 tests everywhere else. Fixed to 20.
-6. **Missing file in project structure** — `test-jwt-auth.mjs` appears in §13's table but was absent from the §11 `scripts/` tree. Added.
-7. **Employee email inconsistency** — §7 (now §8) listed `e01@datastraw.io`; §12 (now §14) listed `ananya.roy@datastraw.io` for the same account. Unified to `ananya.roy@datastraw.io`.
-
----
-
-```markdown
 # Smart Roster Management System
 
 **Project:** Datastraw Tech Internship Assessment  
