@@ -296,80 +296,82 @@ ALL 158/158 AUTOMATED TESTS PASSED ACROSS 7 SUITES!
 5. `05_employee_readonly_slot.png` — Employee Read-Only Slot Inspector with editing strictly disabled.
 
 ---
-
+```
 ## 11. Project Structure
 
-```
 smart-roster-management-system/
-├── PR.md                         # Complete Product Requirements Document
-├── system_design.md              # System Architecture & Design Document (by Meet Maru)
-├── UI_UX_design.md               # Visual Architecture & Aesthetic Specification (by Meet Maru)
-├── README.md                     # Setup guide and technical documentation (by Meet Maru)
-├── package.json                  # Dependencies & scripts
-├── tsconfig.json                 # TypeScript strict compiler options
-├── tailwind.config.js            # Design tokens (0px radius, flat shadow, pastel palette)
-├── postcss.config.js             # PostCSS plugins
-├── .env.local                    # Environment configuration
+├── PR.md                                  # Complete Product Requirements Document
+├── system_design.md                       # System Architecture & Design Document (by Meet Maru)
+├── UI_UX_design.md                        # Visual Architecture & Aesthetic Specification (by Meet Maru)
+├── README.md                              # Setup guide and technical documentation (by Meet Maru)
+├── package.json                           # Dependencies & scripts
+├── tsconfig.json                          # TypeScript strict compiler options
+├── tailwind.config.js                     # Design tokens (0px radius, flat shadow, pastel palette)
+├── postcss.config.js                      # PostCSS plugins
+├── .env.example                           # Sample environment configuration
+├── .env.local                             # Local environment configuration
+├── vercel.json                            # Vercel deployment configuration (bom1 region)
 ├── public/
-│   └── screenshots/              # High-res headless Chrome automated verification screenshots
+│   └── screenshots/                       # Automated verification screenshots
 ├── scripts/
-│   ├── test-e2e.mjs              # 32-test automated verification suite
-│   ├── test-edge-cases.mjs       # 13-test advanced edge case suite
-│   ├── test-advanced-features.mjs# 22-test advanced features verification suite
-│   ├── test-rbac-gating.mjs      # 20-test dedicated RBAC gating suite
-│   ├── test-employee-mgmt.mjs    # 30-test workforce management & range slicing suite
-│   ├── test-p2-features.mjs      # 21-test P2 enhancements & configuration suite
-│   ├── test-range-screenshot.mjs # Modal and matrix range visual screenshot capture
-│   └── test-ui-screenshots.mjs   # 20-test headless Chrome visual verification suite
+│   ├── test-e2e.mjs                       # 32-test automated verification suite
+│   ├── test-edge-cases.mjs                # 13-test advanced edge case suite
+│   ├── test-advanced-features.mjs         # 22-test advanced features verification suite
+│   ├── test-rbac-gating.mjs               # 34-test dedicated RBAC gating & JWT suite
+│   ├── test-employee-mgmt.mjs             # 30-test workforce management & range slicing suite
+│   ├── test-p2-features.mjs               # 21-test P2 enhancements & configuration suite
+│   ├── test-range-screenshot.mjs          # Modal and matrix range visual screenshot capture
+│   └── test-ui-screenshots.mjs            # 20-test headless Chrome visual verification suite
 └── src/
     ├── app/
-    │   ├── layout.tsx            # Global HTML root layout
-    │   ├── page.tsx              # Main Operations Dashboard & Roster Matrix
-    │   ├── globals.css           # Global Tailwind directives & resets
+    │   ├── layout.tsx                     # Global HTML root layout
+    │   ├── page.tsx                       # Main Operations Dashboard & Roster Matrix
+    │   ├── globals.css                    # Global Tailwind directives & resets
     │   └── api/
-    │       ├── auth/             # Login, logout, session me, register API (force-dynamic)
-    │       ├── seed/route.ts     # Benchmark seed data loader (30 employees)
-    │       ├── employees/route.ts# Range slicing & employee CRUD management API (force-dynamic)
-    │       ├── brands/route.ts   # Brand management CRUD API (force-dynamic)
-    │       ├── pods/route.ts     # Pod configuration API (force-dynamic)
-    │       ├── processes/route.ts# Process & operating rules API (force-dynamic)
-    │       ├── notifications/    # In-app operational notifications API (force-dynamic)
+    │       ├── auth/                      # Login, logout, session me, refresh, register API
+    │       ├── seed/route.ts              # Benchmark seed data loader (30 employees)
+    │       ├── employees/route.ts         # Range slicing & employee CRUD management API
+    │       ├── brands/route.ts            # Brand management CRUD API
+    │       ├── pods/route.ts              # Pod configuration API
+    │       ├── processes/route.ts         # Process & operating rules API
+    │       ├── notifications/route.ts     # In-app operational notifications API
     │       ├── roster/
-    │       │   ├── route.ts      # Active roster query endpoint
-    │       │   ├── generate/     # Deterministic roster generation API
-    │       │   ├── reassign/     # 1-click atomic backup reassignment & slot override API
-    │       │   └── publish/      # Publication gatekeeper API
-    │       ├── leaves/route.ts   # Leave submission and approval API
-    │       └── swaps/route.ts    # Shift swap & comp-off credit management API
+    │       │   ├── route.ts               # Active roster query endpoint (auto-seeding on cold start)
+    │       │   ├── generate/route.ts      # Deterministic roster generation API
+    │       │   ├── reassign/route.ts      # 1-click atomic backup reassignment & slot override API
+    │       │   └── publish/route.ts       # Publication gatekeeper API
+    │       ├── leaves/route.ts            # Leave submission and approval API
+    │       └── swaps/route.ts             # Shift swap & comp-off credit management API
     ├── components/
-    │   ├── icons.tsx             # Custom SVG icons (no Lucide, no emojis, Google SSO)
-    │   ├── EnterpriseLoginGateway.tsx # Full-page Enterprise Authentication & SSO Gateway
-    │   ├── NavigationSidebar.tsx # Collapsible navigation sidebar (w-64 to w-16)
-    │   ├── EmployeeManagementModal.tsx # Range slicing, employee preview & management modal
-    │   ├── BrandManagementModal.tsx # Brand creation, editing, single/multi-resource & process rules
-    │   ├── AdvancedOptimizationModal.tsx # Fair rest distribution, skill depth & surge simulation
-    │   ├── NotificationCenterModal.tsx # In-app notification center modal
-    │   ├── AuthModal.tsx         # Role-based login & Google OAuth modal
-    │   ├── LeaveManagementModal.tsx # Leave submission & Pod Lead approval drawer
-    │   ├── ShiftSwapModal.tsx    # Shift swapping & comp-off credit modal
-    │   ├── SlotEditorModal.tsx   # Direct cell-click slot override dialog (Read-only for employee)
-    │   ├── PrintDispatchView.tsx # Physical operations dispatch sheet (A4 landscape)
-    │   ├── AnalyticsDashboard.tsx# Operational Analytics & SLA Coverage Dashboard
-    │   ├── TerminalWindow.tsx    # Solver console execution trace logger
-    │   ├── ProductDemoSection.tsx# Assessment benchmark & stress-test simulation
-    │   ├── ConflictDrawer.tsx    # Slide-over conflict & AI recommendation drawer
-    │   ├── AuditTrailView.tsx    # Immutable revision history table
-    │   ├── RosterViews.tsx       # 5 specialized matrix views with range slicing & shift timing tags
-    │   └── PrivacyPolicyModal.tsx# Operational privacy & governance modal
+    │   ├── icons.tsx                      # Custom SVG icons (pure SVG, 0 emojis, Google SSO)
+    │   ├── EnterpriseLoginGateway.tsx     # Full-page Enterprise Authentication & SSO Gateway
+    │   ├── NavigationSidebar.tsx          # Collapsible navigation sidebar
+    │   ├── RosterViews.tsx                # 5 Matrix Viewports (Company, Pod, Brand, Process, Staff)
+    │   ├── LeaveManagementModal.tsx       # Leave approval and submission modal
+    │   ├── ShiftSwapModal.tsx             # Peer shift exchange and comp-off bank modal
+    │   ├── SlotEditorModal.tsx            # Slot override & read-only inspector modal
+    │   ├── ConflictDrawer.tsx             # Slide-out real-time conflict & backup drawer
+    │   ├── EmployeeManagementModal.tsx    # Workforce management & range slicing modal
+    │   ├── BrandManagementModal.tsx       # Client brand SLA & operating rule modal
+    │   ├── AdvancedOptimizationModal.tsx  # Fairness optimizer & what-if surge simulation
+    │   ├── NotificationCenterModal.tsx    # Operational notification drawer
+    │   ├── AnalyticsDashboard.tsx         # Real-time SLA analytics & KPI dashboard
+    │   ├── AuditTrailView.tsx             # Immutable audit log view
+    │   ├── PrintDispatchView.tsx          # Clean printable shift dispatch sheet
+    │   ├── PrivacyPolicyModal.tsx         # Data governance & privacy policy modal
+    │   └── TerminalWindow.tsx             # Solver Diagnostics Console (sidebar only)
     ├── lib/
-    │   ├── db.ts                 # Data store, RBAC validator & audit logger
-    │   ├── seed-data.ts          # 30-employee benchmark dataset generator
-    │   ├── export-csv.ts         # RFC 4180 compliant CSV export utility
-    │   └── scheduling-engine.ts  # Deterministic constraint solver & repair logic
+    │   ├── authMiddleware.ts              # Server-side JWT authentication & RBAC validator
+    │   ├── db.ts                          # In-memory store with audit logging
+    │   ├── export-csv.ts                  # CSV export engine
+    │   ├── firebase.ts                    # Safe client Firebase singleton
+    │   ├── firebase-admin.ts              # Server-only Firebase Admin SDK
+    │   ├── jwt.ts                         # Cryptographic signing, verification & hashing
+    │   ├── permissions.ts                 # Role-based feature gate matrices
+    │   ├── scheduling-engine.ts           # Deterministic multi-brand constraint solver
+    │   └── seed-data.ts                   # 30-employee, 18-brand benchmark dataset
     └── types/
-        └── index.ts              # Domain interfaces & TypeScript types
-```
-
+        └── index.ts                       # Complete TypeScript domain contracts
 ---
 
 ## 12. Enterprise JWT Authentication & RBAC Specification
